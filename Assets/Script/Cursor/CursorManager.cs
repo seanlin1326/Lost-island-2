@@ -6,17 +6,46 @@ namespace Sean
    
     public class CursorManager : MonoBehaviour
     {
+        public RectTransform hand;
         private Vector3 MouseWorldPos => Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0));
+        private ItemName currentItem;
         private bool canClick;
+        private bool holdItem;
+        private void OnEnable()
+        {
+            EventHandler.ItemSelectedEvent += OnItemSelectedEvent;
+        }
+
+        
+
+        private void OnDisable()
+        {
+            EventHandler.ItemSelectedEvent -= OnItemSelectedEvent;
+        }
 
         private void Update()
         {
             canClick = ObjectAtMousePosition();
+
+            if (hand.gameObject.activeInHierarchy)
+            {
+                hand.position = Input.mousePosition;
+            }
+
             if (canClick && Input.GetMouseButtonDown(0))
             {
                 //檢測鼠標互動情況
                 ClickAction(ObjectAtMousePosition().gameObject);
             }
+        }
+        private void OnItemSelectedEvent(ItemDetails itemDetails, bool isSelected)
+        {
+            holdItem = isSelected;
+            if (isSelected)
+            {
+                currentItem = itemDetails.itemName;
+            }
+            hand.gameObject.SetActive(holdItem);
         }
         private void ClickAction(GameObject clickObject)
         {
@@ -36,7 +65,19 @@ namespace Sean
                         item.ItemClicked();
                     }
                     break;
-                    
+                case "Interactive":
+                    var interactive = clickObject.GetComponent<Interactive>();
+                    if (holdItem)
+                    {
+                        interactive?.CheckItem(currentItem);
+                    }
+                    else
+                    {
+                        interactive?.EmptyClicked();
+                    }
+                    break;
+
+
             }
         }
         /// <summary>
