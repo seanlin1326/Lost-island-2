@@ -6,6 +6,7 @@ namespace Sean
     public class ObjectManager : MonoBehaviour
     {
         private Dictionary<ItemName, bool> itemAvailableDictionary = new Dictionary<ItemName, bool>();
+        private Dictionary<string, bool> interactiveStateDictionary = new Dictionary<string, bool>();
         private void OnEnable()
         {
             EventHandler.OnBeforeSceneUnloadEvent += OnBeforeSceneUnloadEvent;
@@ -28,6 +29,18 @@ namespace Sean
                     itemAvailableDictionary.Add(item.itemName,true);
                 }
             }
+
+            foreach (var item in FindObjectsOfType<Interactive>())
+            {
+                if (interactiveStateDictionary.ContainsKey(item.name))
+                {
+                    interactiveStateDictionary[item.name] = item.isDone;
+                }
+                else
+                {
+                    interactiveStateDictionary.Add(item.name,item.isDone);
+                }
+            }
         }
         private void OnAfterSceneLoadedEvent()
         {
@@ -41,6 +54,17 @@ namespace Sean
                 else
                 {
                     item.gameObject.SetActive(itemAvailableDictionary[item.itemName]);
+                }
+            }
+            foreach (var item in FindObjectsOfType<Interactive>())
+            {
+                if (interactiveStateDictionary.ContainsKey(item.name))
+                {
+                   item.isDone = interactiveStateDictionary[item.name];
+                }
+                else
+                {
+                    interactiveStateDictionary.Add(item.name, item.isDone);
                 }
             }
         }

@@ -14,6 +14,7 @@ namespace Sean
         private void OnEnable()
         {
             EventHandler.ItemSelectedEvent += OnItemSelectedEvent;
+            EventHandler.ItemUsedEvent += OnItemUsedEvent;
         }
 
         
@@ -21,6 +22,7 @@ namespace Sean
         private void OnDisable()
         {
             EventHandler.ItemSelectedEvent -= OnItemSelectedEvent;
+            EventHandler.ItemUsedEvent -= OnItemUsedEvent;
         }
 
         private void Update()
@@ -37,6 +39,12 @@ namespace Sean
                 //檢測鼠標互動情況
                 ClickAction(ObjectAtMousePosition().gameObject);
             }
+        }
+        private void OnItemUsedEvent(ItemName itemName)
+        {
+            currentItem = ItemName.None;
+            holdItem = false;
+            hand.gameObject.SetActive(false);
         }
         private void OnItemSelectedEvent(ItemDetails itemDetails, bool isSelected)
         {

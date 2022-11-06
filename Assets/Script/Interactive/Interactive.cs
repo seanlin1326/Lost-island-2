@@ -15,6 +15,7 @@ namespace Sean
                 isDone = true;
                 //使用這個物品，移除這個物品
                 OnClickedAction();
+                EventHandler.CallItemUsedEvent(itemName);
             }
         }
         /// <summary>

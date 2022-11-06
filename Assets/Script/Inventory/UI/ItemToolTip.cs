@@ -2,18 +2,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-public class ItemToolTip : MonoBehaviour
+namespace Sean
 {
-    public Text itemNameText;
-    
-    public void UpdateItemName(ItemName itemName)
+    public class ItemToolTip : MonoBehaviour
     {
-        itemNameText.text = itemName switch
-        {
-            ItemName.Key => "信箱鑰匙",
-            ItemName.Ticket => "一張船票",
-            _ => ""
+        public Text itemNameText;
 
-        };
+        public void UpdateItemName(ItemName itemName)
+        {
+            itemNameText.text = itemName switch
+            {
+                ItemName.Key => "信箱鑰匙",
+                ItemName.Ticket => "一張船票",
+                _ => ""
+
+            };
+        }
     }
 }
