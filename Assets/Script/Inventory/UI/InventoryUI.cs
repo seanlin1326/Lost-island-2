@@ -34,7 +34,42 @@ namespace Sean
             {
                 currentIndex = index;
                 slotUI.SetItem(itemDetails);
+
+                if(index > 0)
+                {
+                    leftButton.interactable = true;
+;               }
+                else if(index == -1)
+                {
+                    leftButton.interactable = false;
+                    rightButton.interactable = false;
+                }
             }
+
+        }
+        /// <summary>
+        /// 左右按鈕Event事件
+        /// </summary>
+        /// <param name="amount"></param>
+        public void SwitchItem(int amount)
+        {
+            var index = currentIndex + amount;
+            if(index < currentIndex)
+            {
+                leftButton.interactable = false;
+                rightButton.interactable = true;
+            }
+            else if(index > currentIndex)
+            {
+                leftButton.interactable = true;
+                rightButton.interactable = false;
+            }
+            else //多於2個物品的情況
+            {
+                leftButton.interactable = true;
+                rightButton.interactable = true;
+            }
+            EventHandler.CallChangeItemEvent(index);
         }
     }
 }

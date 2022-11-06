@@ -23,7 +23,6 @@ namespace Sean
         {
             if (!isDone)
             {
-                Debug.Log("haha");
                 ticket.SetActive(false);
             }
             else
