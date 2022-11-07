@@ -11,13 +11,29 @@ namespace Sean
         public CanvasGroup fadeCanvasGroup;
         public float fadeDuration;
         private bool isFade;
+        private bool canTransition;
         private void Start()
         {
             StartCoroutine(TransitionToScene(startScene));
+            canTransition = true;
+        }
+        private void OnEnable()
+        {
+            EventHandler.GameStateChangeEvent += OnGameStateChangeEvent;
+        }
+        
+
+        private void OnDisable()
+        {
+            EventHandler.GameStateChangeEvent -= OnGameStateChangeEvent;
+        }
+        private void OnGameStateChangeEvent(GameState gameState)
+        {
+            canTransition = gameState == GameState.GamePlay;
         }
         public void Transition(string from, string to)
        {
-            if (!isFade)
+            if (!isFade && canTransition)
             {
                 StartCoroutine(TransitionToScene(from, to));
             }
