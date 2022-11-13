@@ -57,5 +57,10 @@ namespace Sean
         {
             CheckGameStateEvent?.Invoke();
         }
+        public static event Action<string> GamePassEvent;
+        public static void CallGamePassEvent(string gameName)
+        {
+            GamePassEvent?.Invoke(gameName);
+        }
     }
 }

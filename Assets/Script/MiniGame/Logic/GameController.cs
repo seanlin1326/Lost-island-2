@@ -48,7 +48,8 @@ namespace Sean
             {
                 holder.GetComponent<Collider2D>().enabled = false;
             }
-                OnFinish?.Invoke();
+            EventHandler.CallGamePassEvent(gameData.gameName);
+            OnFinish?.Invoke();
         }
         public void ResetGame()
         {

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 namespace Sean
 {
    
@@ -33,7 +34,10 @@ namespace Sean
             {
                 hand.position = Input.mousePosition;
             }
-
+            if (InteractWithUI())
+            {
+                return;
+            }
             if (canClick && Input.GetMouseButtonDown(0))
             {
                 //檢測鼠標互動情況
@@ -94,6 +98,18 @@ namespace Sean
         private Collider2D ObjectAtMousePosition()
         {
             return Physics2D.OverlapPoint(MouseWorldPos);
+        }
+
+        private bool InteractWithUI()
+        {
+            if(EventSystem.current != null && EventSystem.current.IsPointerOverGameObject())
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 }

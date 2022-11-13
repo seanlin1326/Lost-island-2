@@ -6,6 +6,7 @@ namespace Sean
     [CreateAssetMenu(fileName = "GameH2A_SO",menuName ="MiniGameData/GameH2A_SO")]
     public class GameH2A_SO : ScriptableObject
     {
+       [SceneName] public string gameName;
         [Header("球的名字和對應的圖片")]
         public List<BallDetails> ballDataList = new List<BallDetails>();
         [Header("遊戲邏輯數據")]
