@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 namespace Sean
 {
     public class GameManager : MonoBehaviour
@@ -37,6 +38,7 @@ namespace Sean
         // Start is called before the first frame update
         void Start()
         {
+            //SceneManager.LoadScene("Menu",LoadSceneMode.Additive);
             EventHandler.CallGameStateChangeEvent(GameState.GamePlay);
         }
 
