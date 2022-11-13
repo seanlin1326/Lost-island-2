@@ -52,5 +52,10 @@ namespace Sean
         {
             GameStateChangeEvent?.Invoke(gameState);
         }
+        public static event Action CheckGameStateEvent;
+        public static void CallCheckGameStateEvent()
+        {
+            CheckGameStateEvent?.Invoke();
+        }
     }
 }

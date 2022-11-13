@@ -15,6 +15,9 @@ EditorBuildSettings:
     path: Assets/Scenes/H2.unity
     guid: 4389bc13c01259048a0d4080e92daa07
   - enabled: 1
+    path: Assets/Scenes/H2A.unity
+    guid: 8e00ac7f429720f47916852b8ccbe46e
+  - enabled: 1
     path: Assets/Scenes/H4.unity
     guid: b026b800ffd19d44da5d1eb32241ba6a
   m_configObjects: {}
